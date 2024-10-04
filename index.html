@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <title>Slide</title>
+    <style>
+        .set {
+            background-color: black;
+        }
+
+        .slider {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75) !important;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .left {
+            font-size: 28px;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+
+        .right {
+            font-size: 28px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            color: white;
+        }
+
+        /* Modal Styling */
+        .model {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s linear;
+        }
+
+        .indicator.active {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="set">
+        <div class="container">
+            <div class="slider">
+                <div class="slides">
+                    <div class="slide"><img class="img-fluid" src="img/1.jpg" alt=""></div>
+                    <div class="slide"><img class="img-fluid" src="img/2.jpg" alt=""></div>
+                    <div class="slide"><img class="img-fluid" src="img/3.jpg" alt=""></div>
+                    <div class="slide"><img class="img-fluid" src="img/4.jpg" alt=""></div>
+                </div>
+                <div class="left">
+                    <iconify-icon icon="teenyicons:left-outline"></iconify-icon>
+                </div>
+                <div class="right">
+                    <iconify-icon icon="teenyicons:right-outline"></iconify-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="model" id="my-model">
+            <div class="content">
+                <h2 class="h2">HELLO</h2>
+                <p>How are you?</p>
+                <button class="btn btn-primary" id="close">Close</button>
+            </div>
+        </div>
+
+        <div class="indicators">
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+    <!-- <script>
+        const slides = document.querySelector(".slides");
+        const countSlide = document.querySelectorAll(".slide").length;
+        let currentSlide = 0;
+        const intervalTime = 5000;
+        let slideInterval;
+
+        function slideNext() {
+            currentSlide = (currentSlide + 1) % countSlide;
+            slideUpdate();
+        }
+
+        function slidePrev() {
+            currentSlide = (currentSlide - 1 + countSlide) % countSlide;
+            slideUpdate();
+        }
+
+        function slideUpdate() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function slideStart() {
+            slideInterval = setInterval(slideNext, intervalTime);
+        }
+
+        function slideStop() {
+            clearInterval(slideInterval);
+        }
+
+        document.querySelector(".left").addEventListener("click", () => {
+            slidePrev();
+            slideStop();
+            slideStart();
+        });
+
+        document.querySelector(".right").addEventListener("click", () => {
+            slideNext();
+            slideStop();
+            slideStart();
+        });
+
+        //		document.querySelctor(".slider").addEventLidtener("mouseenter",slideStop)	
+        //							document.querySelctor(".slider").addEventLidtener("mouseleave",slideStart)		
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowRight") {
+                slideNext();
+                slideStop();
+                slideStart();
+            } else if (event.key === "ArrowLeft") {
+                slidePrev();
+                slideStop();
+                slideStart();
+            }
+        })
+
+        slideStart();
+
+        const model = document.getElementById("my-model");
+        const closeBtn = document.getElementById("close");
+
+        setTimeout(() => {
+            model.style.display = "flex";
+        }, 5000);
+
+        closeBtn.addEventListener("click", () => {
+            model.style.display = "none";
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === model) {
+                model.style.display = "none";
+            }
+        });
+
+        document.querySelectorAll(".slide").forEach((slide) => {
+            slide.addEventListener("click", () => {
+                model.style.display = "flex";
+            });
+        });
+    </script> -->
+    <script>
+        const slides = document.querySelector(".slides");
+        const countSlide = document.querySelectorAll(".slide").length;
+        let currentSlide = 0;
+        const intervalTime = 5000;
+        let slideInterval;
+    
+        const indicators = document.querySelectorAll(".indicator");
+    
+        function slideNext() {
+            currentSlide = (currentSlide + 1) % countSlide;
+            slideUpdate();
+        }
+    
+        function slidePrev() {
+            currentSlide = (currentSlide - 1 + countSlide) % countSlide;
+            slideUpdate();
+        }
+    
+        function slideUpdate() {
+            // Update the slide position
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            // Update the indicators
+            updateIndicators();
+        }
+    
+        function slideStart() {
+            slideInterval = setInterval(slideNext, intervalTime);
+        }
+    
+        function slideStop() {
+            clearInterval(slideInterval);
+        }
+    
+        function updateIndicators() {
+            // Remove the active class from all indicators
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add("active");
+                } else {
+                    indicator.classList.remove("active");
+                }
+            });
+        }
+    
+        // Add event listeners to indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener("click", () => {
+                currentSlide = index;
+                slideUpdate();
+                slideStop();
+                slideStart();
+            });
+        });
+    
+        // Event listeners for left and right arrows
+        document.querySelector(".left").addEventListener("click", () => {
+            slidePrev();
+            slideStop();
+            slideStart();
+        });
+    
+        document.querySelector(".right").addEventListener("click", () => {
+            slideNext();
+            slideStop();
+            slideStart();
+        });
+    
+        // Keyboard arrow navigation
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowRight") {
+                slideNext();
+                slideStop();
+                slideStart();
+            } else if (event.key === "ArrowLeft") {
+                slidePrev();
+                slideStop();
+                slideStart();
+            }
+        });
+    
+        // Start the slideshow
+        slideStart();
+    
+        // Modal functionality
+        const model = document.getElementById("my-model");
+        const closeBtn = document.getElementById("close");
+    
+        setTimeout(() => {
+            model.style.display = "flex";
+        }, 5000);
+    
+        closeBtn.addEventListener("click", () => {
+            model.style.display = "none";
+        });
+    
+        window.addEventListener("click", (event) => {
+            if (event.target === model) {
+                model.style.display = "none";
+            }
+        });
+    
+        // Open modal when clicking on a slide
+        document.querySelectorAll(".slide").forEach((slide) => {
+            slide.addEventListener("click", () => {
+                model.style.display = "flex";
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
