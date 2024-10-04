@@ -1,5 +1,4 @@
 ---
-
 # Sliderrr
 
 Sliderrr is a lightweight, responsive image slider built with HTML, CSS, and JavaScript. It provides smooth transitions and can be easily customized for various use cases such as web portfolios, galleries, or product showcases.
